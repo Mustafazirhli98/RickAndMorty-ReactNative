@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import ENDPOINTS from "../constants/EndPoints"
 import { get } from "../services/Service"
-import { FlatList } from "react-native"
+import { FlatList, StyleSheet, View } from "react-native"
 import CharacterCard from "../components/CharacterCard"
 
 const CharacterDetail = ({ navigation, route }) => {
@@ -25,8 +25,16 @@ const CharacterDetail = ({ navigation, route }) => {
     }
 
     return (
-        <FlatList data={characterDetailedInfo} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+        <View style={styles.container}>
+            <FlatList data={characterDetailedInfo} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+        </View>
     )
 }
 
 export default CharacterDetail
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+})

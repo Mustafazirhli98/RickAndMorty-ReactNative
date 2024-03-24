@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FlatList } from "react-native"
+import { FlatList, StyleSheet, View } from "react-native"
 import ENDPOINTS from "../constants/EndPoints"
 import { get } from "../services/Service"
 import CharacterOverView from "../components/CharacterOverView"
@@ -34,8 +34,16 @@ const EpisodeDetail = ({ navigation, route }) => {
     }
 
     return (
-        <FlatList data={characters} renderItem={renderedItemHelper} keyExtractor={item => item} />
+        <View style={styles.container}>
+            <FlatList data={characters} renderItem={renderedItemHelper} keyExtractor={item => item} />
+        </View>
     )
 }
 
 export default EpisodeDetail
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+})

@@ -1,15 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import Stack from './navigation/Stack';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 export default function App() {
 
   return (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <Stack />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack />
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }
@@ -30,6 +34,20 @@ export default function App() {
 
 
 //TODOS
+
+//● Listeleme sırasında Favori Karakter seçimi yapılabilmelidir.
+
+//● Favori karakterlerin listelendiği Favori Karakterler sayfası olmalıdır. Bu sayfada Sil butonu yer almalıdır. Silme işlemi yapılmak istendiğinde kullanıcıya “... isimli karakteri favorilerden kaldırmak istediğinize emin misiniz?” sorusu sorulmalıdır. Evet seçeneği seçildiğinde karakter listeden silinerek güncel liste ekranda gösterilmelidir. Hayır seçeneği seçildiğinde herhangi bir işlem yapılmasına gerek yoktur.
+
+//● Pagination işlemi Component olarak oluşturulup, kullanılmalıdır.
+
+//Maksimum 10 karakter favori olarak eklenebilir. Favori karakter sayısı 10’u geçtiğindekullanıcıya “Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız.” bildirimi gösterilmelidir. (Local Notification)
+
+//● Favori karakterleri Redux / Toolkit ve AsyncStorage kullanarak state yönetimi işlemleri de yapılmalıdır.
+
+
+//DONE
+
 //https://rickandmortyapi.com/api/episode API araclığı ile gelen tüm bölümlere ait veriler uygulamanın ana ekranında pagination(sayfalama) şeklinde listelenmelidir.
 
 //● Her bölüme ait tüm karakter ve özelliklerini gösteren kartlar aynı şekilde pagination(sayfalama) yapılarak listelenmelidir.
@@ -41,15 +59,3 @@ export default function App() {
 //● Açılan bölüm sayfasında bölümde bulunan karakterler listelenmeli ve karaktere tıklandığında karakter ile ilgili bilgiler API aracılığı ile alarak ekrana dökülmelidir. Örnek API için https://rickandmortyapi.com/api/character/1 bağlantısını kullanabilirsiniz.
 
 //● Uygulama tasarımları tamamen uygulama geliştiriciye bırakılmıştır.
-
-//● Pagination işlemi Component olarak oluşturulup, kullanılmalıdır.
-
-//● Listeleme sırasında Favori Karakter seçimi yapılabilmelidir.
-
-//Maksimum 10 karakter favori olarak eklenebilir. Favori karakter sayısı 10’u geçtiğindekullanıcıya “Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız.” bildirimi gösterilmelidir. (Local Notification)
-
-//● Favori karakterleri Redux / Toolkit ve AsyncStorage kullanarak state yönetimi işlemleri de yapılmalıdır.
-
-//● Favori karakterlerin listelendiği Favori Karakterler sayfası olmalıdır. Bu sayfada Sil butonu yer almalıdır. Silme işlemi yapılmak istendiğinde kullanıcıya “... isimli karakteri favorilerden kaldırmak istediğinize emin misiniz?” sorusu sorulmalıdır. Evet seçeneği seçildiğinde karakter listeden silinerek güncel liste ekranda gösterilmelidir. Hayır seçeneği seçildiğinde herhangi bir işlem yapılmasına gerek yoktur.
-
-//DONE

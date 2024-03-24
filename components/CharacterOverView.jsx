@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     outerContainer: {
         overflow: "hidden",
         alignItems: "center",
-        flex: 1
+        flex: 1,
     },
     innerContainer: {
         margin: 10,
