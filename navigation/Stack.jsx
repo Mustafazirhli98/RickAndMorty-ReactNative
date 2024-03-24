@@ -7,9 +7,15 @@ const Stack = () => {
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={TopTabs} />
-            <Stack.Screen name="Episode Detail" component={EpisodeDetail} />
-            <Stack.Screen name="Character Detail" component={CharacterDetail} />
+            <Stack.Screen
+                name="Home"
+                component={TopTabs}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen name="EpisodeDetail" component={EpisodeDetail} />
+            <Stack.Screen name="CharacterDetail" component={CharacterDetail} />
         </Stack.Navigator>
     )
 }

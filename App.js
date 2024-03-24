@@ -28,6 +28,7 @@ export default function App() {
 
 
 
+
 //TODOS
 //https://rickandmortyapi.com/api/episode API araclığı ile gelen tüm bölümlere ait veriler uygulamanın ana ekranında pagination(sayfalama) şeklinde listelenmelidir.
 

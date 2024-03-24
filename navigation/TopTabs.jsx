@@ -7,7 +7,12 @@ const TopTabs = () => {
     const TopTabs = createMaterialTopTabNavigator()
 
     return (
-        <TopTabs.Navigator>
+        <TopTabs.Navigator screenOptions={{
+            tabBarStyle: {
+                marginTop: 30,
+                padding: 5
+            }
+        }}>
             <TopTabs.Screen name="Episodes" component={Episodes} />
             <TopTabs.Screen name="Favorites" component={FavoriteCharacters} />
         </TopTabs.Navigator>
