@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FlatList, StyleSheet, Text, View } from "react-native"
+import { FlatList, StyleSheet, View } from "react-native"
 import { get } from "../services/Service"
 import ENDPOINTS from "../constants/EndPoints"
 import EpisodeOverView from "../components/EpisodeOverview"
@@ -30,10 +30,10 @@ const Episodes = ({ navigation }) => {
                 onPress={handleEpisodeDetail}
                 name={item.name}
                 airDate={item.air_date}
+                episode={item.episode}
             />
         )
     }
-
     return (
         <View style={styles.container}>
             <FlatList data={results} renderItem={renderedItemHelper} keyExtractor={item => item.id} />

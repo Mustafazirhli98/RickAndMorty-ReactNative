@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { FlatList, Text } from "react-native"
+import { FlatList } from "react-native"
 import ENDPOINTS from "../constants/EndPoints"
 import { get } from "../services/Service"
 import CharacterOverView from "../components/CharacterOverView"
+import { splitAPI } from "../utils/splitAPI"
 
 const EpisodeDetail = ({ navigation, route }) => {
     const [characters, setCharacters] = useState([])
@@ -17,10 +18,18 @@ const EpisodeDetail = ({ navigation, route }) => {
         handleData()
     }, [])
 
+
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
+
+        const handleCharacterDetail = () => {
+            const characterID = characters.map(item => splitAPI(item))
+            navigation.navigate("CharacterDetail", {
+                characterID: characterID
+            })
+        }
         return (
-            <CharacterOverView character={item} />
+            <CharacterOverView character={item} onPress={handleCharacterDetail} />
         )
     }
 

@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
 
-const EpisodeOverView = ({ name, airDate, onPress }) => {
+const EpisodeOverView = ({ name, airDate, episode, onPress }) => {
     return (
         <Pressable
             onPress={onPress}
@@ -9,6 +9,7 @@ const EpisodeOverView = ({ name, airDate, onPress }) => {
                 <View style={styles.innerContainer}>
                     <View style={styles.textContainer}>
                         <Text style={styles.name}>{name}</Text>
+                        <Text style={styles.episode}>{episode}</Text>
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.date}>{airDate}</Text>
@@ -37,13 +38,15 @@ const styles = StyleSheet.create({
         width: "95%"
     },
     textContainer: {
-        justifyContent: "center",
-        alignItems: "center",
-        textAlignVertical: "center",
+        alignItems: "left",
         height: 35
     },
     name: {
-        maxWidth: 150
+        maxWidth: 150,
+        fontWeight: "bold"
+    },
+    episode: {
+        fontSize: 13
     },
     date: {
         textAlign: "right",
