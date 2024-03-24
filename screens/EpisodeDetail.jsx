@@ -23,9 +23,8 @@ const EpisodeDetail = ({ navigation, route }) => {
         const item = itemData.item
 
         const handleCharacterDetail = () => {
-            const characterID = characters.map(item => splitAPI(item))
             navigation.navigate("CharacterDetail", {
-                characterID: characterID
+                characterID: item
             })
         }
         return (

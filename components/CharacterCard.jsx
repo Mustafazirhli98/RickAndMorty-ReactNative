@@ -1,34 +1,18 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import { useSelector } from "react-redux"
+import Identify from "./Identify"
 
-const CharacterCard = ({ name, gender, location, species, status, type, image }) => {
+const CharacterCard = ({ name, gender, location, species, status, image, id }) => {
+    const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
+    const isMealFavorite = favoritesList.includes(id)
 
     return (
-        <View style={styles.container}>
-            <View style={styles.imgContainer}>
-                <Image source={{ uri: image }} style={styles.image} resizeMode="stretch" />
-            </View>
-            <View style={styles.identify}>
-                <View style={styles.iconContainer}>
-                    <Ionicons name="star-outline" style={styles.starIcon} size={30} />
+        <View style={styles.outerContainer}>
+            <View style={styles.innerContainer}>
+                <View style={styles.imgContainer}>
+                    <Image source={{ uri: image }} style={styles.image} resizeMode="stretch" />
                 </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>
-                        <Text style={styles.title}>Name:</Text> {name}
-                    </Text>
-                    <Text style={styles.text}>
-                        <Text style={styles.title}>Gender:</Text> {gender}
-                    </Text>
-                    <Text style={styles.text}>
-                        <Text style={styles.title}>Location:</Text> {location.name}
-                    </Text>
-                    <Text style={styles.text}>
-                        <Text style={styles.title}>Status:</Text> {status}
-                    </Text>
-                    <Text style={styles.text}>
-                        <Text style={styles.title}>Species:</Text> {species}
-                    </Text>
-                </View>
+                <Identify shape={isMealFavorite} name={name} gender={gender} location={location} species={species} status={status} />
             </View>
         </View>
     )
@@ -37,42 +21,24 @@ const CharacterCard = ({ name, gender, location, species, status, type, image })
 export default CharacterCard
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
+    outerContainer: {
         flex: 1,
-        backgroundColor: "#ccc",
-        margin: 10
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 0,
+    },
+    innerContainer: {
+        flexDirection: "row",
+        margin: 10,
+        elevation: 4,
+        padding: 10
     },
     imgContainer: {
         flex: 1
     },
     image: {
-        height: 220,
+        height: 300,
         width: "100%"
     },
-    identify: {
-        justifyContent: "space-evenly",
-        flex: 0.8
-    },
-    iconContainer: {
-        textAlign: "center"
-    },
-    starIcon: {
-        color: "#847e7e",
-        textAlign: "right",
-        padding: 5
-    },
-    textContainer: {
-        maxWidth: 150,
-        paddingHorizontal: 8
-    },
-    text: {
-        fontSize: 14,
-        marginBottom: 10,
-    },
-    title: {
-        fontWeight: "bold"
-    },
-
 })
 
