@@ -23,11 +23,9 @@ export default function App() {
 
 //TODOS
 
-//● Pagination işlemi Component olarak oluşturulup, kullanılmalıdır.
-
 //Maksimum 10 karakter favori olarak eklenebilir. Favori karakter sayısı 10’u geçtiğindekullanıcıya “Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız.” bildirimi gösterilmelidir. (Local Notification)
 
-//● Favori karakterleri Redux / Toolkit ve AsyncStorage kullanarak state yönetimi işlemleri de yapılmalıdır.
+//● Pagination işlemi Component olarak oluşturulup, kullanılmalıdır.
 
 //● Her bir listeleme için (Bölümler, karakterler vb. ) herhangi bir karakter ismi veya özelliklerine göre search(arama) işlemini de yapabiliyor olmalıyım.
 
@@ -45,3 +43,5 @@ export default function App() {
 //● Uygulama tasarımları tamamen uygulama geliştiriciye bırakılmıştır.
 
 //● Listeleme sırasında Favori Karakter seçimi yapılabilmelidir.
+
+//● Favori karakterleri Redux / Toolkit ve AsyncStorage kullanarak state yönetimi işlemleri de yapılmalıdır.

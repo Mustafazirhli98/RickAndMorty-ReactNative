@@ -2,31 +2,43 @@ import { Alert, StyleSheet, Text, View } from "react-native"
 import FavIcon from "../Icon/FavIcon"
 import { useDispatch, useSelector } from "react-redux"
 import { addFavorite, removeFavorite } from "../../store/favoritesSlice"
+import { AlertsConst } from "../../constants/AlertsConst"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useEffect } from "react"
 
 const Identify = ({ name, gender, location, species, status, id, image }) => {
-
-
     const dispatch = useDispatch()
-
     const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
-    const isMealFavorite = favoritesList.find(item => item.id === id);
+    const isFavorite = favoritesList.find(item => item.id === id);
+
+    const storeData = async (value) => {
+        try {
+            await AsyncStorage.setItem("Favorites", JSON.stringify(value))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        storeData(favoritesList)
+    }, [favoritesList])
 
     const favoritesHandler = () => {
-        if (isMealFavorite) {
-            Alert.alert("Uyarı!", `${name} isimli karakteri favorilerden kaldırmak istediğinize emin misiniz?`, [
-                { text: "Evet", style: "default", onPress: () => dispatch(removeFavorite(id)) },
-                { text: "Hayır", style: "cancel" }
-            ])
-
-        } else {
+        if (!isFavorite) {
             dispatch(addFavorite({ name, gender, location, species, status, id, image }))
+        } else {
+            Alert.alert(
+                AlertsConst.deleteAlert.title, `${name} ${AlertsConst.deleteAlert.body}`, [
+                { text: AlertsConst.deleteAlert.button1, style: "default", onPress: () => dispatch(removeFavorite(id)) },
+                { text: AlertsConst.deleteAlert.button2, style: "cancel" }
+            ])
         }
     }
 
     return (
         <View style={styles.identify}>
             <View style={styles.iconContainer}>
-                <FavIcon name={isMealFavorite ? "star" : "star-outline"} size={30} onPress={favoritesHandler} />
+                <FavIcon name={isFavorite ? "star" : "star-outline"} size={30} onPress={favoritesHandler} />
             </View>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
@@ -60,7 +72,6 @@ const styles = StyleSheet.create({
     iconContainer: {
         textAlign: "center"
     },
-
     textContainer: {
         maxWidth: 150,
         paddingHorizontal: 8

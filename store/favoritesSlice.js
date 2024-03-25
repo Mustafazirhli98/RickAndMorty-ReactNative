@@ -18,10 +18,13 @@ const favoriteSlice = createSlice({
         },
         removeAll: (state) => {
             state.favoriteList = []
+        },
+        saveToStorage: (state, action) => {
+            state.favoriteList = action.payload
         }
 
     }
 })
 
-export const { addFavorite, removeFavorite, removeAll } = favoriteSlice.actions
+export const { addFavorite, removeFavorite, removeAll, saveToStorage } = favoriteSlice.actions
 export default favoriteSlice.reducer
