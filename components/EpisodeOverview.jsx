@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
+import GlobalStyles from "../constants/GlobalStyles"
 
 const EpisodeOverView = ({ name, airDate, episode, onPress }) => {
     return (
@@ -25,16 +26,18 @@ export default EpisodeOverView
 const styles = StyleSheet.create({
     outerContainer: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     innerContainer: {
         padding: 20,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderBottomWidth: 1,
-        borderBottomColor: "red",
-        width: "95%"
+        borderWidth: 1,
+        borderBottomColor: GlobalStyles.COLORS.Evil_Morty_Siyah,
+        width: "95%",
+        margin: 5,
+        backgroundColor: GlobalStyles.COLORS.RickSanchez_GREEN
     },
     textContainer: {
         alignItems: "left",
@@ -42,7 +45,8 @@ const styles = StyleSheet.create({
     },
     name: {
         maxWidth: 150,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontSize: 14
     },
     episode: {
         fontSize: 13

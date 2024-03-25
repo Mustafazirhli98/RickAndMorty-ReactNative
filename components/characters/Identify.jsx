@@ -1,7 +1,7 @@
 import { Alert, StyleSheet, Text, View } from "react-native"
 import FavIcon from "../Icon/FavIcon"
 import { useDispatch, useSelector } from "react-redux"
-import { addFavorite, removeFavorite } from "../../store/favoritesSlice"
+import { addFavorite, removeFavorite, saveToStorage } from "../../store/favoritesSlice"
 import { AlertsConst } from "../../constants/AlertsConst"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect } from "react"
@@ -14,10 +14,12 @@ const Identify = ({ name, gender, location, species, status, id, image }) => {
     const storeData = async (value) => {
         try {
             await AsyncStorage.setItem("Favorites", JSON.stringify(value))
+            dispatch(saveToStorage(value))
         } catch (e) {
-            console.log(e)
+            console.log("storeData hatası:", e)
         }
     }
+
 
     useEffect(() => {
         storeData(favoritesList)

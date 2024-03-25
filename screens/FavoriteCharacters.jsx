@@ -5,11 +5,11 @@ import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { saveToStorage } from "../store/favoritesSlice"
 import SearchInput from "../components/SearchInput"
+import GlobalStyles from "../constants/GlobalStyles"
 
 const FavoriteCharacters = () => {
 
     const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
-    const [favData, setFavData] = useState(favoritesList)
     const dispatch = useDispatch()
 
     const renderedItemHelper = (itemData) => {
@@ -33,7 +33,7 @@ const FavoriteCharacters = () => {
             const favList = jsonValue != null ? JSON.parse(jsonValue) : null
             dispatch(saveToStorage(favList))
         } catch (e) {
-            console.log(e)
+            console.log("getData hatası:", e)
         }
     }
 
@@ -60,11 +60,11 @@ const FavoriteCharacters = () => {
                 favoritesList.length > 0 ?
                     <>
                         <SearchInput checkData={checkData} />
-                        <FlatList data={favData} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+                        <FlatList data={favoritesList} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
                     </>
                     :
                     <View style={styles.noDataContainer}>
-                        <Text>there are no fav yet.</Text>
+                        <Text style={styles.noDataText}>there are no fav yet.</Text>
                     </View>
             }
         </View>
@@ -76,9 +76,14 @@ export default FavoriteCharacters
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: GlobalStyles.COLORS.BethSmith_YELLOW
     },
     noDataContainer: {
+        flex: 1,
         justifyContent: "center",
         alignItems: "center"
+    },
+    noDataText: {
+        fontSize: 20
     }
 })

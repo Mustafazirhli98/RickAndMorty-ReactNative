@@ -25,7 +25,7 @@ const favoriteSlice = createSlice({
         },
         saveToStorage: (state, action) => {
             state.favoriteList = action.payload
-        }
+        },
 
     }
 })

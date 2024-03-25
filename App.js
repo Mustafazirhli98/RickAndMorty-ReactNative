@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <Provider store={store}>
         <NavigationContainer>
           <Stack />
@@ -24,11 +24,8 @@ export default function App() {
 //TODOS
 
 //Maksimum 10 karakter favori olarak eklenebilir. Favori karakter sayısı 10’u geçtiğindekullanıcıya “Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız.” bildirimi gösterilmelidir. (Local Notification)
-
-//● Pagination işlemi Component olarak oluşturulup, kullanılmalıdır.
-
 //● Her bir listeleme için (Bölümler, karakterler vb. ) herhangi bir karakter ismi veya özelliklerine göre search(arama) işlemini de yapabiliyor olmalıyım.
-
+// async storage
 
 //DONE
 

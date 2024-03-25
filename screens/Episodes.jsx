@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import { FlatList, StyleSheet, View } from "react-native"
 import { get } from "../services/Service"
 import ENDPOINTS from "../constants/EndPoints"
 import EpisodeOverView from "../components/EpisodeOverview"
 import SearchInput from "../components/SearchInput"
 import PaginationComponent from "../components/PaginationComponent"
+import GlobalStyles from "../constants/GlobalStyles"
 
 const Episodes = ({ navigation }) => {
     const [results, setResults] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
+    const [length, setLengt] = useState(0)
 
 
     const handleData = async () => {
         const response = await get(ENDPOINTS.EPISODE_PAGE)
         setResults(response.results)
-        console.log(response)
+        setLengt(response.results.length)
     }
     useEffect(() => {
         handleData()
@@ -55,7 +57,7 @@ const Episodes = ({ navigation }) => {
             handleData()
         }
     }
-
+    console.log(results.length, length)
     return (
         <View style={styles.container}>
             <SearchInput checkData={checkData} />
@@ -63,7 +65,7 @@ const Episodes = ({ navigation }) => {
                 data={results}
                 renderItem={renderedItemHelper}
                 keyExtractor={item => item.id}
-                ListFooterComponent={currentPage < 3 && <PaginationComponent handleLoadMore={handleLoadMore} />}
+                ListFooterComponent={(currentPage < 3 && results.length >= length) && <PaginationComponent handleLoadMore={handleLoadMore} />}
             />
         </View>
     )
@@ -73,6 +75,7 @@ export default Episodes
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:GlobalStyles.COLORS.Birdperson_GREY
     }
 })
