@@ -4,11 +4,12 @@ import CharacterItem from "../components/characters/CharacterItem"
 import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { saveToStorage } from "../store/favoritesSlice"
+import SearchInput from "../components/SearchInput"
 
 const FavoriteCharacters = () => {
 
     const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
-    const storageData = useSelector(state => state.favoritesSlice.storageData)
+    const [favData, setFavData] = useState(favoritesList)
     const dispatch = useDispatch()
 
     const renderedItemHelper = (itemData) => {
@@ -22,12 +23,10 @@ const FavoriteCharacters = () => {
             id: item.id,
             image: item.image,
         }
-
         return (
             <CharacterItem {...data} />
         )
     }
-
     const getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem("Favorites");
@@ -44,13 +43,25 @@ const FavoriteCharacters = () => {
         }
     }, [])
 
+    const checkData = (enteredText) => {
+        const searchResult = favoritesList.filter(item =>
+            item.name.toLowerCase() === enteredText.toLowerCase()
+        )
+        if (enteredText === "") {
+            setFavData(favoritesList)
+        } if (searchResult.length > 0) {
+            setFavData(searchResult);
+        }
+    };
+
     return (
-
-
         <View style={styles.container} >
             {
                 favoritesList.length > 0 ?
-                    <FlatList data={favoritesList} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+                    <>
+                        <SearchInput checkData={checkData} />
+                        <FlatList data={favData} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+                    </>
                     :
                     <View style={styles.noDataContainer}>
                         <Text>there are no fav yet.</Text>
@@ -67,7 +78,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     noDataContainer: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center"
     }

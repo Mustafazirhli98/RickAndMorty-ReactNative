@@ -10,7 +10,11 @@ const favoriteSlice = createSlice({
     reducers: {
         addFavorite: (state, action) => {
             if (!state.favoriteList.includes(action.payload)) {
-                state.favoriteList.push(action.payload)
+                if (state.favoriteList.length === 10) {
+                    console.log("maximum karakter 10 olmalı!")
+                } else {
+                    state.favoriteList.push(action.payload)
+                }
             }
         },
         removeFavorite: (state, action) => {
