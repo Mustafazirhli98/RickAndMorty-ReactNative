@@ -22,6 +22,7 @@ const EpisodeDetail = ({ navigation, route }) => {
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
 
+        // const characterID = splitAPI(item)
         const handleCharacterDetail = () => {
             navigation.navigate("CharacterDetail", {
                 characterID: item

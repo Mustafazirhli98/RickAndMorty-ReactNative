@@ -1,4 +1,4 @@
-import { Image, Platform, Pressable, StyleSheet, Text, View } from "react-native"
+import { FlatList, Image, Platform, Pressable, StyleSheet, Text, View } from "react-native"
 import ENDPOINTS from "../constants/EndPoints"
 import { useEffect, useState } from "react"
 import { get } from "../services/Service"
@@ -11,6 +11,7 @@ const CharacterOverView = ({ character, onPress }) => {
         const characterID = splitAPI(character)
         const response = await get(ENDPOINTS.CHARACTER + `/${characterID}`)
         setCharacterInfo(response)
+
     }
     useEffect(() => {
         handleData()
@@ -65,3 +66,4 @@ const styles = StyleSheet.create({
         opacity: Platform.OS === "ios" ? 0.25 : 1
     }
 })
+

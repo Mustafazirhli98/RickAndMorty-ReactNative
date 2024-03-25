@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     starIcon: {
         color: "#847e7e",
         textAlign: "right",
-        paddingRight: 5,
-        marginTop: -30
+        paddingRight: 6,
+        marginTop: -10,
     },
 })

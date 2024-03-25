@@ -1,23 +1,32 @@
-import { StyleSheet, Text, View } from "react-native"
-import FavIcon from "./Icon/FavIcon"
-import { addFavorite, removeFavorite } from "../store/favoritesSlice"
-import { useDispatch } from "react-redux"
+import { Alert, StyleSheet, Text, View } from "react-native"
+import FavIcon from "../Icon/FavIcon"
+import { useDispatch, useSelector } from "react-redux"
+import { addFavorite, removeFavorite } from "../../store/favoritesSlice"
 
-const Identify = ({ shape, name, gender, location, species, status, id }) => {
+const Identify = ({ name, gender, location, species, status, id, image }) => {
+
 
     const dispatch = useDispatch()
 
+    const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
+    const isMealFavorite = favoritesList.find(item => item.id === id);
+
     const favoritesHandler = () => {
         if (isMealFavorite) {
-            dispatch(addFavorite(id))
+            Alert.alert("Uyarı!", `${name} isimli karakteri favorilerden kaldırmak istediğinize emin misiniz?`, [
+                { text: "Evet", style: "default", onPress: () => dispatch(removeFavorite(id)) },
+                { text: "Hayır", style: "cancel" }
+            ])
+
         } else {
-            dispatch(removeFavorite(id))
+            dispatch(addFavorite({ name, gender, location, species, status, id, image }))
         }
     }
+
     return (
         <View style={styles.identify}>
             <View style={styles.iconContainer}>
-                <FavIcon name={shape ? "star" : "star-outline"} size={30} onPress={favoritesHandler} />
+                <FavIcon name={isMealFavorite ? "star" : "star-outline"} size={30} onPress={favoritesHandler} />
             </View>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
