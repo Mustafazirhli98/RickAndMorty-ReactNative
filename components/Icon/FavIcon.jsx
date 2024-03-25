@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet } from "react-native"
+import GlobalStyles from "../../constants/GlobalStyles"
 
 const FavIcon = ({ name, size, onPress }) => {
     return (
@@ -11,7 +12,7 @@ export default FavIcon
 
 export const styles = StyleSheet.create({
     starIcon: {
-        color: "#847e7e",
+        color: GlobalStyles.COLORS.SummerSmith_PINK,
         textAlign: "right",
         paddingRight: 6,
         marginTop: -10,

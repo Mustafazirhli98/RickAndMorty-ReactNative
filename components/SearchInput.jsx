@@ -1,13 +1,13 @@
 import { StyleSheet, TextInput, View } from "react-native"
 import GlobalStyles from "../constants/GlobalStyles"
 
-const SearchInput = ({ checkData }) => {
+const SearchInput = ({ checkData, title }) => {
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
                 onChangeText={checkData}
-                placeholder="wanna search some?"
+                placeholder={title}
                 placeholderTextColor={GlobalStyles.COLORS.Evil_Morty_Siyah} />
         </View>
     )

@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from "react-native"
 import Identify from "./Identify"
 
+
 const CharacterItem = ({ name, gender, location, species, status, id, image }) => {
     return (
         <View style={styles.outerContainer}>
@@ -26,8 +27,8 @@ const styles = StyleSheet.create({
     innerContainer: {
         flexDirection: "row",
         margin: 10,
-        elevation: 4,
-        padding: 10
+        elevation: 8,
+        backgroundColor: "transparent",
     },
     imgContainer: {
         flex: 1

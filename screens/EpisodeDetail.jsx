@@ -2,10 +2,8 @@ import { useEffect, useState } from "react"
 import { FlatList, StyleSheet, View } from "react-native"
 import ENDPOINTS from "../constants/EndPoints"
 import { get } from "../services/Service"
-import CharacterOverView from "../components/CharacterOverView"
-import { splitAPI } from "../utils/splitAPI"
-import SearchInput from "../components/SearchInput"
 import PaginationComponent from "../components/PaginationComponent"
+import { CharacterOverView } from "../components"
 
 const EpisodeDetail = ({ navigation, route }) => {
     const [characters, setCharacters] = useState([]);
@@ -35,7 +33,6 @@ const EpisodeDetail = ({ navigation, route }) => {
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
 
-        // const characterID = splitAPI(item)
         const handleCharacterDetail = () => {
             navigation.navigate("CharacterDetail", {
                 characterID: item
@@ -48,7 +45,6 @@ const EpisodeDetail = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            {/* <SearchInput checkData={checkData} /> */}
             <FlatList
                 data={characters}
                 renderItem={renderedItemHelper}

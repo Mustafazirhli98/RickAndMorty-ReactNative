@@ -4,7 +4,6 @@ const instance = axios.create({
     baseURL: "https://rickandmortyapi.com/api"
 });
 
-
 export const get = async (param) => {
     try {
         const response = await instance.get(param);
@@ -13,4 +12,3 @@ export const get = async (param) => {
         console.error('GET isteği sırasında bir hata oluştu:', error.message);
     }
 };
-

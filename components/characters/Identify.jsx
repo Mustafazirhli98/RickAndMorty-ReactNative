@@ -19,8 +19,6 @@ const Identify = ({ name, gender, location, species, status, id, image }) => {
             console.log("storeData hatası:", e)
         }
     }
-
-
     useEffect(() => {
         storeData(favoritesList)
     }, [favoritesList])

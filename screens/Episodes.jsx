@@ -1,11 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { FlatList, StyleSheet, View } from "react-native"
 import { get } from "../services/Service"
 import ENDPOINTS from "../constants/EndPoints"
-import EpisodeOverView from "../components/EpisodeOverview"
-import SearchInput from "../components/SearchInput"
-import PaginationComponent from "../components/PaginationComponent"
 import GlobalStyles from "../constants/GlobalStyles"
+import { EpisodeOverview, PaginationComponent, SearchInput } from "../components"
 
 const Episodes = ({ navigation }) => {
     const [results, setResults] = useState([]);
@@ -38,7 +36,7 @@ const Episodes = ({ navigation }) => {
             })
         }
         return (
-            <EpisodeOverView
+            <EpisodeOverview
                 onPress={handleEpisodeDetail}
                 name={item.name}
                 airDate={item.air_date}
@@ -49,7 +47,9 @@ const Episodes = ({ navigation }) => {
 
     const checkData = (enteredText) => {
         const searchResult = results.filter(item =>
-            (item.episode.toLowerCase() === enteredText.toLowerCase()) || (item.name.toLowerCase() === enteredText.toLowerCase()) || (item.air_date.toLowerCase() === enteredText.toLowerCase())
+            (item.episode.toLowerCase() === enteredText.toLowerCase()) ||
+            (item.name.toLowerCase() === enteredText.toLowerCase()) ||
+            (item.air_date.toLowerCase() === enteredText.toLowerCase())
         )
         if (searchResult.length > 0) {
             setResults(searchResult)
@@ -57,10 +57,9 @@ const Episodes = ({ navigation }) => {
             handleData()
         }
     }
-    console.log(results.length, length)
     return (
         <View style={styles.container}>
-            <SearchInput checkData={checkData} />
+            <SearchInput checkData={checkData} title={"wanna search some?"} />
             <FlatList
                 data={results}
                 renderItem={renderedItemHelper}
@@ -76,6 +75,6 @@ export default Episodes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:GlobalStyles.COLORS.Birdperson_GREY
+        backgroundColor: GlobalStyles.COLORS.Birdperson_GREY
     }
 })

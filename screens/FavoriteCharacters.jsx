@@ -1,11 +1,11 @@
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
-import CharacterItem from "../components/characters/CharacterItem"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { saveToStorage } from "../store/favoritesSlice"
-import SearchInput from "../components/SearchInput"
 import GlobalStyles from "../constants/GlobalStyles"
+import { SearchInput } from "../components"
+import { CharacterItem } from "../components/characters"
 
 const FavoriteCharacters = () => {
 
@@ -59,7 +59,7 @@ const FavoriteCharacters = () => {
             {
                 favoritesList.length > 0 ?
                     <>
-                        <SearchInput checkData={checkData} />
+                        <SearchInput checkData={checkData} title={"search maybe?"} />
                         <FlatList data={favoritesList} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
                     </>
                     :

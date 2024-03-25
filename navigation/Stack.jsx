@@ -8,9 +8,6 @@ const Stack = () => {
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator screenOptions={{
-            // contentStyle: {
-            //     backgroundColor: GlobalStyles.COLORS.RickSanchez_GREEN
-            // },
             headerStyle: {
                 backgroundColor: "red"
             },
@@ -47,6 +44,7 @@ const Stack = () => {
                 name="CharacterDetail"
                 component={CharacterDetail}
                 options={{
+                    title: "identity",
                     headerStyle: {
                         backgroundColor: GlobalStyles.COLORS.Evil_Morty_Siyah
                     },

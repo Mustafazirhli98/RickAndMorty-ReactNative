@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
     favoriteList: [],
 }
@@ -10,11 +11,7 @@ const favoriteSlice = createSlice({
     reducers: {
         addFavorite: (state, action) => {
             if (!state.favoriteList.includes(action.payload)) {
-                if (state.favoriteList.length === 10) {
-                    console.log("maximum karakter 10 olmalı!")
-                } else {
                     state.favoriteList.push(action.payload)
-                }
             }
         },
         removeFavorite: (state, action) => {
