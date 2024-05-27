@@ -2,10 +2,10 @@ import { FlatList, StyleSheet, Text, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { saveToStorage } from "../store/favoritesSlice"
 import GlobalStyles from "../constants/GlobalStyles"
 import { SearchInput } from "../components"
 import { CharacterItem } from "../components/characterList"
+import { storeFavList } from "../store/favoritesSlice"
 
 const FavoriteCharacters = () => {
 
@@ -27,21 +27,23 @@ const FavoriteCharacters = () => {
             <CharacterItem {...data} />
         )
     }
-    const getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem("Favorites");
-            const favList = jsonValue != null ? JSON.parse(jsonValue) : null
-            dispatch(saveToStorage(favList))
-        } catch (e) {
-            console.log("getData hatası:", e)
-        }
+
+    const getStoredItems = async () => {
+        const jsonValue = await AsyncStorage.getItem("Favorites")
+        const storedFavList = jsonValue ? JSON.parse(jsonValue) : []
+        dispatch(storeFavList(storedFavList))
+    }
+    const storeItem = async () => {
+        await AsyncStorage.setItem("Favorites", JSON.stringify(favoritesList))
     }
 
     useEffect(() => {
-        if (favoritesList.length === 0) {
-            getData()
-        }
+        getStoredItems()
     }, [])
+
+    useEffect(() => {
+        storeItem()
+    }, [favoritesList])
 
     const checkData = (enteredText) => {
         const searchResult = favoritesList.filter(item =>

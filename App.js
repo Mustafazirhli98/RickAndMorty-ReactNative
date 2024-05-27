@@ -3,9 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import Stack from './navigation/Stack';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import * as Notification from "expo-notifications"
+import { useEffect } from 'react';
+
+
 
 export default function App() {
-
 
   return (
     <>
@@ -21,9 +24,5 @@ export default function App() {
 
 
 //TODOS
-//style changes
-//input search fix
-// async storage fix
-//max 10 character fav
-// local notification fix
+// input search fix
 // General UI Fix 

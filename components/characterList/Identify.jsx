@@ -3,28 +3,20 @@ import FavIcon from "../UI/ButtonFav"
 import { useDispatch, useSelector } from "react-redux"
 import { addFavorite, removeFavorite, saveToStorage } from "../../store/favoritesSlice"
 import { AlertsConst } from "../../constants/AlertsConst"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect } from "react"
+import { scheduleNotification } from "../../utils/LocalNotification"
 
 const Identify = ({ name, gender, location, species, status, id, image }) => {
     const dispatch = useDispatch()
     const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
     const isFavorite = favoritesList.find(item => item.id === id);
 
-    const storeData = async (value) => {
-        try {
-            await AsyncStorage.setItem("Favorites", JSON.stringify(value))
-            dispatch(saveToStorage(value))
-        } catch (e) {
-            console.log("storeData hatası:", e)
-        }
-    }
-    useEffect(() => {
-        storeData(favoritesList)
-    }, [favoritesList])
-
     const favoritesHandler = () => {
         if (!isFavorite) {
+            if (favoritesList.length === 10) {
+                scheduleNotification()
+                return;
+            }
             dispatch(addFavorite({ name, gender, location, species, status, id, image }))
         } else {
             Alert.alert(
