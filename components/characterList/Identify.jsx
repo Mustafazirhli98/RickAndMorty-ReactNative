@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from "react-native"
-import FavIcon from "../Icon/FavIcon"
+import FavIcon from "../UI/ButtonFav"
 import { useDispatch, useSelector } from "react-redux"
 import { addFavorite, removeFavorite, saveToStorage } from "../../store/favoritesSlice"
 import { AlertsConst } from "../../constants/AlertsConst"

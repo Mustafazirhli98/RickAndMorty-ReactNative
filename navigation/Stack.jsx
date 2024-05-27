@@ -8,11 +8,7 @@ const Stack = () => {
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: "red"
-            },
             headerTintColor: GlobalStyles.COLORS.RickSanchez_GREEN
-
         }}>
             <Stack.Screen
                 name="Home"

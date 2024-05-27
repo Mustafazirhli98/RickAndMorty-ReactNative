@@ -6,27 +6,25 @@ import GlobalStyles from "../constants/GlobalStyles"
 import { EpisodeOverview, PaginationComponent, SearchInput } from "../components"
 
 const Episodes = ({ navigation }) => {
-    const [results, setResults] = useState([]);
+    const [episodeData, setEpisodeData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
-    const [length, setLengt] = useState(0)
+    const [totalPages, setTotalPages] = useState(3)
+    const [isSearching, setIsSearching] = useState(false)
 
 
     const handleData = async () => {
         const response = await get(ENDPOINTS.EPISODE_PAGE)
-        setResults(response.results)
-        setLengt(response.results.length)
+        setEpisodeData(response.results)
+        setTotalPages(response.info.pages)
     }
     useEffect(() => {
         handleData()
     }, [])
 
     const handleLoadMore = async () => {
-        const nextPage = currentPage + 1;
-        if (nextPage <= 3) {
-            setCurrentPage(nextPage);
-            const response = await get(ENDPOINTS.EPISODE_PAGE_NEXT + nextPage);
-            setResults([...results, ...response.results])
-        }
+        setCurrentPage(prev => prev + 1)
+        const response = await get(ENDPOINTS.EPISODE_PAGE_NEXT + `${currentPage + 1}`)
+        setEpisodeData([...episodeData, ...response.results])
     }
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
@@ -46,25 +44,27 @@ const Episodes = ({ navigation }) => {
     }
 
     const checkData = (enteredText) => {
-        const searchResult = results.filter(item =>
+        const searchResult = episodeData.filter(item =>
             (item.episode.toLowerCase() === enteredText.toLowerCase()) ||
             (item.name.toLowerCase() === enteredText.toLowerCase()) ||
             (item.air_date.toLowerCase() === enteredText.toLowerCase())
         )
-        if (searchResult.length > 0) {
-            setResults(searchResult)
+        if (searchResult > 0) {
+            setIsSearching(true)
+            setEpisodeData(searchResult)
         } else {
             handleData()
+            setIsSearching(false)
         }
     }
     return (
         <View style={styles.container}>
             <SearchInput checkData={checkData} title={"wanna search some?"} />
             <FlatList
-                data={results}
+                data={episodeData}
                 renderItem={renderedItemHelper}
                 keyExtractor={item => item.id}
-                ListFooterComponent={(currentPage < 3 && results.length >= length) && <PaginationComponent handleLoadMore={handleLoadMore} />}
+                ListFooterComponent={((currentPage < totalPages) && !isSearching) && <PaginationComponent handleLoadMore={handleLoadMore} />}
             />
         </View>
     )

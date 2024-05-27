@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { CharacterItem } from "../components/characters"
+import { CharacterItem } from "../components/characterList"
 import { StyleSheet, View } from "react-native"
 import axios from "axios"
 
@@ -28,6 +28,6 @@ export default CharacterDetail
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     }
 })

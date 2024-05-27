@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { saveToStorage } from "../store/favoritesSlice"
 import GlobalStyles from "../constants/GlobalStyles"
 import { SearchInput } from "../components"
-import { CharacterItem } from "../components/characters"
+import { CharacterItem } from "../components/characterList"
 
 const FavoriteCharacters = () => {
 

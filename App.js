@@ -18,3 +18,12 @@ export default function App() {
     </>
   );
 }
+
+
+//TODOS
+//style changes
+//input search fix
+// async storage fix
+//max 10 character fav
+// local notification fix
+// General UI Fix 
