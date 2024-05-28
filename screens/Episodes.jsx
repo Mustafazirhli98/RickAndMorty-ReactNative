@@ -4,18 +4,23 @@ import { get } from "../services/Service"
 import ENDPOINTS from "../constants/EndPoints"
 import GlobalStyles from "../constants/GlobalStyles"
 import { EpisodeOverview, PaginationComponent, SearchInput } from "../components"
+import LoadingOverlay from "../components/loading/LoadingOverlay"
+import UseFilter from "../hooks/UseFilter"
+import List from "../components/list/List"
 
 const Episodes = ({ navigation }) => {
     const [episodeData, setEpisodeData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(3)
-    const [isSearching, setIsSearching] = useState(false)
-
+    const [isLoading, setIsLoading] = useState(true)
+    const { filteredData, isSearchSuccess, checkFilter } = UseFilter(episodeData, "episode")
 
     const handleData = async () => {
+        setIsLoading(true)
         const response = await get(ENDPOINTS.EPISODE_PAGE)
         setEpisodeData(response.results)
         setTotalPages(response.info.pages)
+        setIsLoading(false)
     }
     useEffect(() => {
         handleData()
@@ -24,7 +29,7 @@ const Episodes = ({ navigation }) => {
     const handleLoadMore = async () => {
         setCurrentPage(prev => prev + 1)
         const response = await get(ENDPOINTS.EPISODE_PAGE_NEXT + `${currentPage + 1}`)
-        setEpisodeData([...episodeData, ...response.results])
+        setEpisodeData(prev => [...prev, ...response.results])
     }
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
@@ -43,28 +48,18 @@ const Episodes = ({ navigation }) => {
         )
     }
 
-    const checkData = (enteredText) => {
-        const searchResult = episodeData.filter(item =>
-            (item.episode.toLowerCase() === enteredText.toLowerCase()) ||
-            (item.name.toLowerCase() === enteredText.toLowerCase()) ||
-            (item.air_date.toLowerCase() === enteredText.toLowerCase())
-        )
-        if (searchResult > 0) {
-            setIsSearching(true)
-            setEpisodeData(searchResult)
-        } else {
-            handleData()
-            setIsSearching(false)
-        }
+    if (isLoading) {
+        return <LoadingOverlay />
     }
     return (
         <View style={styles.container}>
-            <SearchInput checkData={checkData} title={"wanna search some?"} />
-            <FlatList
-                data={episodeData}
-                renderItem={renderedItemHelper}
-                keyExtractor={item => item.id}
-                ListFooterComponent={((currentPage < totalPages) && !isSearching) && <PaginationComponent handleLoadMore={handleLoadMore} />}
+            <SearchInput checkData={checkFilter} title={"wanna search some?"} />
+            <List
+                data={isSearchSuccess ? filteredData : episodeData}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                renderedItemHelper={renderedItemHelper}
+                loadMore={handleLoadMore}
             />
         </View>
     )

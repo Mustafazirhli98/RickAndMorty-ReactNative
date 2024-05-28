@@ -18,7 +18,7 @@ export default SearchInput
 const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     input: {
         width: "80%",

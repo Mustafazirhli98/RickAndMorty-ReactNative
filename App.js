@@ -24,5 +24,5 @@ export default function App() {
 
 
 //TODOS
-// input search fix
+// characters input search fix
 // General UI Fix 
