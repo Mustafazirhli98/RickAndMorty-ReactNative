@@ -12,6 +12,7 @@ const EpisodeDetail = ({ navigation, route }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [secondData, setSecondData] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [deneme, setDeneme] = useState([])
     const episodeID = route.params.episodeID
 
     const handleData = async () => {
@@ -37,17 +38,16 @@ const EpisodeDetail = ({ navigation, route }) => {
 
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
-
         const handleCharacterDetail = () => {
             navigation.navigate("CharacterDetail", {
-                characterID: item
+                characterAPI: item
             })
         }
-
         return (
-            <CharacterOverView character={item} onPress={handleCharacterDetail} />
+            <CharacterOverView character={item} onPress={handleCharacterDetail} setDeneme={setDeneme} />
         )
     }
+
     if (isLoading) {
         return <LoadingOverlay />
     }

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import GlobalStyles from "../constants/GlobalStyles"
 import { SearchInput } from "../components"
-import { CharacterItem } from "../components/characterList"
 import { storeFavList } from "../store/favoritesSlice"
 import LoadingOverlay from "../components/loading/LoadingOverlay"
 import UseFilter from "../hooks/UseFilter"
+import CharacterItem from "../components/characterID/CharacterItem"
 
 const FavoriteCharacters = () => {
 

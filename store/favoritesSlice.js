@@ -11,10 +11,7 @@ const favoriteSlice = createSlice({
     reducers: {
         addFavorite: (state, action) => {
             if (!state.favoriteList.includes(action.payload)) {
-                if (state.favoriteList.length === 10) {
-                    console.log(`Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden
-çıkarmalısınız.`)
-                } else state.favoriteList.push(action.payload)
+                state.favoriteList.push(action.payload)
             }
         },
         removeFavorite: (state, action) => {
