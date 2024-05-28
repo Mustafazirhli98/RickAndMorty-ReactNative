@@ -7,7 +7,11 @@
 ![Episodes2](./images/episodes2.jpeg)
 
 ## Character Screen 
-![Character](./images/characters.jpeg)
+![Character1](./images/characters1.jpeg)
+![Character2](./images/characters2.jpeg)
+
+## Character Detail Screen
+![CharacterDetail](./images/identity.jpeg)
 
 ## Favorites Screen
 ![Favorites](./images//favorites1.jpeg)
