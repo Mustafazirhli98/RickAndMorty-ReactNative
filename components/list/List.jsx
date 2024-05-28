@@ -8,7 +8,7 @@ const List = ({ data, renderedItemHelper, currentPage, totalPages, loadMore, isS
             <FlatList
                 data={data}
                 renderItem={renderedItemHelper}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index}
                 ListFooterComponent={
                     (currentPage < totalPages) && !isSearchSuccess &&
                     <PaginationComponent handleLoadMore={loadMore} />
