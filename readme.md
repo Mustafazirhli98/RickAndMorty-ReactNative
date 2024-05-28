@@ -5,7 +5,6 @@
 ## Episodes Screen
 ![Episodes1](./images/episodes1.jpeg)
 
-
 ![Episodes2](./images/episodes2.jpeg)
 
 ## Character Screen 
@@ -13,6 +12,5 @@
 
 ## Favorites Screen
 ![Favorites](./images//favorites1.jpeg)
-
 
 ![Favorites2](./images//favorites2.jpeg)
