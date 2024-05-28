@@ -19,6 +19,7 @@ export default List
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop:8,
         flex: 1
     }
 })

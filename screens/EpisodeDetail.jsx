@@ -12,7 +12,6 @@ const EpisodeDetail = ({ navigation, route }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [secondData, setSecondData] = useState();
     const [isLoading, setIsLoading] = useState(false);
-    const [deneme, setDeneme] = useState([])
     const episodeID = route.params.episodeID
 
     const handleData = async () => {
@@ -44,7 +43,7 @@ const EpisodeDetail = ({ navigation, route }) => {
             })
         }
         return (
-            <CharacterOverView character={item} onPress={handleCharacterDetail} setDeneme={setDeneme} />
+            <CharacterOverView character={item} onPress={handleCharacterDetail} />
         )
     }
 

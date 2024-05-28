@@ -4,14 +4,12 @@ import { useEffect, useState } from "react"
 import { get } from "../services/Service"
 import { splitAPI } from "../utils/splitAPI"
 
-const CharacterOverView = ({ character, onPress, setDeneme }) => {
+const CharacterOverView = ({ character, onPress }) => {
     const [characterInfo, setCharacterInfo] = useState([])
     const handleData = async () => {
         const characterID = splitAPI(character)
         const response = await get(ENDPOINTS.CHARACTER + `/${characterID}`)
         setCharacterInfo(response)
-        // setDeneme(prev => [...prev, response])
-        setDeneme(response)
     }
     useEffect(() => {
         handleData()
