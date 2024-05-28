@@ -56,6 +56,7 @@ const Episodes = ({ navigation }) => {
             <SearchInput checkData={checkFilter} title={"wanna search some?"} />
             <List
                 data={isSearchSuccess ? filteredData : episodeData}
+                isSearchSuccess={isSearchSuccess}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 renderedItemHelper={renderedItemHelper}

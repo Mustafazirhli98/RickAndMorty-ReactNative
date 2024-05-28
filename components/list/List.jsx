@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from "react-native"
 import PaginationComponent from "../PaginationComponent"
 
-const List = ({ data, renderedItemHelper, currentPage,totalPages, loadMore }) => {
+const List = ({ data, renderedItemHelper, currentPage, totalPages, loadMore, isSearchSuccess }) => {
 
     return (
         <View style={styles.container}>
@@ -9,7 +9,10 @@ const List = ({ data, renderedItemHelper, currentPage,totalPages, loadMore }) =>
                 data={data}
                 renderItem={renderedItemHelper}
                 keyExtractor={item => item.id}
-                ListFooterComponent={currentPage < totalPages && <PaginationComponent handleLoadMore={loadMore} />}
+                ListFooterComponent={
+                    (currentPage < totalPages) && !isSearchSuccess &&
+                    <PaginationComponent handleLoadMore={loadMore} />
+                }
             />
         </View>
     )
@@ -19,7 +22,7 @@ export default List
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop:8,
+        paddingTop: 8,
         flex: 1
     }
 })

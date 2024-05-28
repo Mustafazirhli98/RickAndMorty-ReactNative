@@ -24,5 +24,4 @@ export default function App() {
 
 
 //TODOS
-// characters input search fix
-// General UI Fix 
+// add image/readme publish on github. 

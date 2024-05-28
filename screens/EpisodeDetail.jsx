@@ -5,7 +5,6 @@ import { get } from "../services/Service"
 import { CharacterOverView, SearchInput } from "../components"
 import LoadingOverlay from "../components/loading/LoadingOverlay"
 import List from "../components/list/List"
-import UseFilter from "../hooks/UseFilter"
 
 const EpisodeDetail = ({ navigation, route }) => {
     const [characters, setCharacters] = useState([]);
