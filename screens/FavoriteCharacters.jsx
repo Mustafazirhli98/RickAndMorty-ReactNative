@@ -1,16 +1,20 @@
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { saveToStorage } from "../store/favoritesSlice"
 import GlobalStyles from "../constants/GlobalStyles"
 import { SearchInput } from "../components"
-import { CharacterItem } from "../components/characters"
+import { storeFavList } from "../store/favoritesSlice"
+import LoadingOverlay from "../components/loading/LoadingOverlay"
+import UseFilter from "../hooks/UseFilter"
+import CharacterItem from "../components/characterID/CharacterItem"
 
 const FavoriteCharacters = () => {
 
     const favoritesList = useSelector(state => state.favoritesSlice.favoriteList)
     const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(false)
+    const { isSearchSuccess, filteredData, checkFilter } = UseFilter(favoritesList, "character")
 
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
@@ -27,40 +31,40 @@ const FavoriteCharacters = () => {
             <CharacterItem {...data} />
         )
     }
-    const getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem("Favorites");
-            const favList = jsonValue != null ? JSON.parse(jsonValue) : null
-            dispatch(saveToStorage(favList))
-        } catch (e) {
-            console.log("getData hatası:", e)
-        }
+
+    const getStoredItems = async () => {
+        setIsLoading(true)
+        const jsonValue = await AsyncStorage.getItem("Favorites")
+        const storedFavList = jsonValue ? JSON.parse(jsonValue) : []
+        dispatch(storeFavList(storedFavList))
+        setIsLoading(false)
+    }
+    const storeItem = async () => {
+        await AsyncStorage.setItem("Favorites", JSON.stringify(favoritesList))
     }
 
     useEffect(() => {
-        if (favoritesList.length === 0) {
-            getData()
-        }
+        getStoredItems()
     }, [])
 
-    const checkData = (enteredText) => {
-        const searchResult = favoritesList.filter(item =>
-            item.name.toLowerCase() === enteredText.toLowerCase()
-        )
-        if (enteredText === "") {
-            setFavData(favoritesList)
-        } if (searchResult.length > 0) {
-            setFavData(searchResult);
-        }
-    };
+    useEffect(() => {
+        storeItem()
+    }, [favoritesList])
 
+    if (isLoading) {
+        return <LoadingOverlay />
+    }
     return (
         <View style={styles.container} >
             {
                 favoritesList.length > 0 ?
                     <>
-                        <SearchInput checkData={checkData} title={"search maybe?"} />
-                        <FlatList data={favoritesList} renderItem={renderedItemHelper} keyExtractor={item => item.id} />
+                        <SearchInput checkData={checkFilter} title={"search maybe?"} />
+                        <FlatList
+                            data={isSearchSuccess ? filteredData : favoritesList}
+                            renderItem={renderedItemHelper}
+                            keyExtractor={item => item.id}
+                        />
                     </>
                     :
                     <View style={styles.noDataContainer}>

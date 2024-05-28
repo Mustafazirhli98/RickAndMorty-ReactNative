@@ -11,7 +11,6 @@ const CharacterOverView = ({ character, onPress }) => {
         const response = await get(ENDPOINTS.CHARACTER + `/${characterID}`)
         setCharacterInfo(response)
     }
-
     useEffect(() => {
         handleData()
     }, [])

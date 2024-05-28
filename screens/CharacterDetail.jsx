@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { CharacterItem } from "../components/characters"
 import { StyleSheet, View } from "react-native"
 import axios from "axios"
+import CharacterItem from "../components/characterID/CharacterItem"
 
 const CharacterDetail = ({ route }) => {
     const [characterDetailedInfo, setCharacterDetailedInfo] = useState()
 
-    const characterAPI = route.params.characterID
+    const characterAPI = route.params.characterAPI
     const handleData = async () => {
         const response = await axios.get(characterAPI)
         setCharacterDetailedInfo(response.data)
@@ -28,6 +28,6 @@ export default CharacterDetail
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     }
 })

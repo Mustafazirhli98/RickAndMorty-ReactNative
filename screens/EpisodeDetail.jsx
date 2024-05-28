@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react"
-import { FlatList, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import ENDPOINTS from "../constants/EndPoints"
 import { get } from "../services/Service"
-import PaginationComponent from "../components/PaginationComponent"
-import { CharacterOverView } from "../components"
+import { CharacterOverView, SearchInput } from "../components"
+import LoadingOverlay from "../components/loading/LoadingOverlay"
+import List from "../components/list/List"
 
 const EpisodeDetail = ({ navigation, route }) => {
     const [characters, setCharacters] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [secondData, setSecondData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const episodeID = route.params.episodeID
 
     const handleData = async () => {
+        setIsLoading(true)
         const episodeResponse = await get(ENDPOINTS.EPISODE_PAGE + `/${episodeID}`);
         const totalCharacters = episodeResponse.characters.length;
         const firstPageEndIndex = Math.floor(totalCharacters / 2);
@@ -19,6 +22,7 @@ const EpisodeDetail = ({ navigation, route }) => {
         const secondData = episodeResponse.characters.slice(firstPageEndIndex);
         setCharacters(firstData);
         setSecondData(secondData);
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -32,10 +36,9 @@ const EpisodeDetail = ({ navigation, route }) => {
 
     const renderedItemHelper = (itemData) => {
         const item = itemData.item
-
         const handleCharacterDetail = () => {
             navigation.navigate("CharacterDetail", {
-                characterID: item
+                characterAPI: item
             })
         }
         return (
@@ -43,13 +46,17 @@ const EpisodeDetail = ({ navigation, route }) => {
         )
     }
 
+    if (isLoading) {
+        return <LoadingOverlay />
+    }
     return (
         <View style={styles.container}>
-            <FlatList
+            <List
                 data={characters}
-                renderItem={renderedItemHelper}
-                keyExtractor={item => item}
-                ListFooterComponent={currentPage < 2 && <PaginationComponent handleLoadMore={handleLoadMore} />}
+                currentPage={currentPage}
+                totalPages={2}
+                renderedItemHelper={renderedItemHelper}
+                loadMore={handleLoadMore}
             />
         </View>
     )
